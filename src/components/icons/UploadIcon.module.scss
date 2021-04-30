@@ -1,0 +1,36 @@
+$size: 70px;
+$arrow-width: 7px;
+$border-radius: 3px;
+$color: white;
+
+.container {
+    width: $size;
+    height: $size;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 50%;
+    border: 3px solid $color;
+}
+.container div {
+    border-radius: $border-radius;
+}
+.arrow {
+    border: solid $color;
+    border-width: 0 $arrow-width $arrow-width 0;
+    display: inline-block;
+    padding: 12px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+.stick {
+    width: $arrow-width;
+    height: 36px;
+    background-color: $color;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+}

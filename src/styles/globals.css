@@ -1,0 +1,43 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: unset;
+}
+:root {
+    --primary-color: rgba(181,1,197,1);
+    --primary-gradient: linear-gradient(to top right, rgba(58,1,70,1) 0%, rgba(181,1,197,1) 100%);
+}
+
+button:focus,input:focus,textarea:focus {
+    outline: 0;
+    box-shadow: 0 0 10px #ccc;
+}
+
+@font-face {
+    font-family: 'original-surfer';
+    src: url('/OriginalSurfer-Regular.ttf') format('truetype');
+}
+
+.custom-scrollbar {
+    overflow-y: auto;
+}
+/* width */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    display: none;
+}
+  
+/* Track */
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
+
+/* Handle on hover */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

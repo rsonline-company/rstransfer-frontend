@@ -1,0 +1,23 @@
+$width: 370px;
+$height: 500px;
+
+.container {
+    background-color: #231f3a;
+    width: $width;
+    min-height: $height;
+    max-height: 80vh;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px;
+    padding: 20px;
+    color: white;
+}
+
+@media (max-width: $width) {
+    .container {
+        width: 100%;
+    }
+}
