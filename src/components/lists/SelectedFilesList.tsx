@@ -16,8 +16,8 @@ const SelectedFilesList: React.FC<Props> = ({ files }) => {
             names.push(file.name);
             size = size + file.size;
         }));
+
         setFileNames(names);
-        console.log("size GB: ", size/1024/1024/1024);
         setSize(convertBytes(size));
     }, [files]);
 
@@ -26,7 +26,7 @@ const SelectedFilesList: React.FC<Props> = ({ files }) => {
             {fileNames.map(name => (
                 <div className={styles.item}>{name}</div>
             ))}
-            {size ? <div className={styles.size}>Rozmiar plików - {size} <b>(max: 2GB)</b></div> : null}
+            {fileNames.length > 0 ? <div className={styles.size}>Rozmiar plików - {size} <b>(max: 2GB)</b></div> : null}
         </div>
     )
 }

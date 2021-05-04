@@ -2,6 +2,7 @@ import Head from 'next/head';
 import '../styles/globals.css';
 import Background from '../components/background/Background';
 import Navbar from '../components/navbar/Navbar';
+import GroupedModals from '../components/modals/GroupedModals';
 
 function MyApp({ Component, pageProps }) {
     return (
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Navbar />
         <Background />
+        <GroupedModals />
         <Component {...pageProps} />
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossOrigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossOrigin="anonymous"></script>

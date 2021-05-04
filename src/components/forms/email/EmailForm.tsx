@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PrimaryButton from '../../buttons/PrimaryButton';
+import PrimaryButton from '../../buttons/primary/PrimaryButton';
 import PrimaryInput from '../../inputs/primary/PrimaryInput';
 import PrimaryTextArea from '../../inputs/primary/PrimaryTextArea';
 import RadioInput from '../../inputs/radio/RadioInput';

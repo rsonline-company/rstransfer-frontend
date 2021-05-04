@@ -1,0 +1,9 @@
+$color: var(--primary-color);
+
+.button {
+    border: 1px solid $color;
+    border-radius: 5px;
+    background-color: $color;
+    font-weight: 500;
+    color: white;
+}

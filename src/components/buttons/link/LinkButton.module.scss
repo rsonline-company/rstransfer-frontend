@@ -1,0 +1,10 @@
+$color: var(--primary-color);
+
+.button {
+    background-color: transparent;
+    border: 1px solid $color;
+    border-radius: 5px;
+    color: $color;
+    font-weight: 500;
+    padding: 1px 15px;
+}
