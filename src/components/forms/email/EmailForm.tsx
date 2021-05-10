@@ -12,9 +12,13 @@ interface Props {
     setEmailTo: (value: string) => void;
     message: string;
     setMessage: (value: string) => void;
+    emailFromErrorMessage: string;
+    emailToErrorMessage: string;
 }
 
-const EmailForm: React.FC<Props> = ({ isEmailSending, setIsEmailSending, emailFrom, setEmailFrom, emailTo, setEmailTo, message, setMessage }) => {
+const EmailForm: React.FC<Props> = ({
+    isEmailSending, setIsEmailSending, emailFrom, setEmailFrom, emailTo, setEmailTo, message, setMessage, emailFromErrorMessage, emailToErrorMessage
+}) => {
     return (
         <div>
             <div className="my-4 d-flex justify-content-around">
@@ -36,6 +40,7 @@ const EmailForm: React.FC<Props> = ({ isEmailSending, setIsEmailSending, emailFr
                     placeholder="Twój email..."
                     value={emailFrom}
                     onChange={setEmailFrom}
+                    errorMessage={emailFromErrorMessage}
                 />
             </div>
             <div className="my-4">
@@ -43,6 +48,7 @@ const EmailForm: React.FC<Props> = ({ isEmailSending, setIsEmailSending, emailFr
                     placeholder="Email do..."
                     value={emailTo}
                     onChange={setEmailTo}
+                    errorMessage={emailToErrorMessage}
                 />
             </div>
             <div className="my-4">
