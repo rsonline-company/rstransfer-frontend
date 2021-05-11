@@ -24,6 +24,7 @@ const PrimaryInput: React.FC<Props> = ({ placeholder, value, onChange, isTextCop
     return (
         <div className={styles.container}>
         <input
+            data-testid="primary-input"
             type="text"
             className={styles.input}
             placeholder={placeholder}

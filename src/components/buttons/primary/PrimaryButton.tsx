@@ -9,6 +9,7 @@ interface Props {
 const PrimaryButton: React.FC<Props> = ({ title, onClick }) => {
     return (
         <button
+            data-testid="primary-button"
             className={styles.button}
             onClick={onClick}    
         >{title}</button>
