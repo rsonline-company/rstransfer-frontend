@@ -1,10 +1,22 @@
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import '../styles/globals.css';
 import Background from '../components/background/Background';
 import Navbar from '../components/navbar/Navbar';
 import GroupedModals from '../components/modals/GroupedModals';
+import { useDispatch, Provider } from 'react-redux';
+import store from '../redux/store';
+import { SET_TOKEN } from '../redux/actions/Auth';
 
-function MyApp({ Component, pageProps }) {
+function Index({ Component, pageProps }) {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+console.log(token);
+        dispatch({ type: SET_TOKEN, payload: { token: token } });
+    }, []);
+
     return (
         <>
         <Head>
@@ -22,16 +34,15 @@ function MyApp({ Component, pageProps }) {
     )
 }
 
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//
-//   return { ...appProps }
-// }
+function MyApp({ Component, pageProps }) {
+    return (
+        <Provider store={store}>
+            <Index
+                Component={Component}
+                pageProps={pageProps}
+            />
+        </Provider>
+    );
+}
 
 export default MyApp

@@ -5,6 +5,7 @@ html, body {
 }
 :root {
     --primary-color: rgba(181,1,197,1);
+    --accent-color: rgba(58,1,70,1);
     --primary-gradient: linear-gradient(to top right, rgba(58,1,70,1) 0%, rgba(181,1,197,1) 100%);
 }
 
@@ -40,4 +41,12 @@ button:focus,input:focus,textarea:focus {
 /* Handle on hover */
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #999;
+}
+
+.close {
+    font-size: 50px;
+    color: white;
+}
+.close:hover {
+    color: white;
 }

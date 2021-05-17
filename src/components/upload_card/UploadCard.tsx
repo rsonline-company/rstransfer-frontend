@@ -139,7 +139,7 @@ const UploadCard: React.FC = () => {
                 emailFromErrorMessage={emailFromErrorMessage}
                 emailToErrorMessage={emailToErrorMessage}
             />
-            <div className="my-4">
+            <div className="my-4 d-flex justify-content-center">
                 {isSending
                     ? <ProgressBar
                         percentage={percentage}

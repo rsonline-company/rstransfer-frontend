@@ -7,15 +7,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: white!important;
 }
 .name {
     font-size: 30px;
     font-weight: bold;
     font-family: 'original-surfer';
+    color: white;
 }
 .item {
     font-weight: bold;
+    margin-right: 20px;
 }
 .item:hover {
     cursor: pointer;
