@@ -18,6 +18,11 @@ $height: 500px;
 
 @media (max-width: $width) {
     .container {
-        width: 100%;
+        width: 96%;
+        position: unset;
+        top: unset;
+        left: unset;
+        transform: unset;
+        margin: 15px auto;
     }
 }

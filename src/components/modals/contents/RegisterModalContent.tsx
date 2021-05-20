@@ -33,7 +33,7 @@ const RegisterModalContent: React.FC = () => {
                 <PrimaryInput value={email} placeholder="e-mail" onChange={val => setEmail(val)} />
             </div>
             <div className="my-4">
-                <PrimaryInput value={password} placeholder="hasło" onChange={val => setPassword(val)} />
+                <PrimaryInput type="password" value={password} placeholder="hasło" onChange={val => setPassword(val)} />
             </div>
             <div className="my-4 d-flex justify-content-center">
                 <PrimaryButton title="Zarejestruj się" onClick={() => register()} />

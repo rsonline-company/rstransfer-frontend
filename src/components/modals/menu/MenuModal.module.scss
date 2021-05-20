@@ -7,14 +7,10 @@
     right: 0;
     z-index: 10;
 }
-.close {
-    background: transparent;
-    border: none;
-    font-size: 48px;
+.item {
+    font-size: 20px;
+    margin-top: 15px;
+    color: var(--accent-color);
     font-weight: bold;
-    height: 50px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    cursor: pointer;
 }

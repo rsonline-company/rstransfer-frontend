@@ -8,6 +8,8 @@ import axios from 'axios';
 import ProgressBar from '../progress_bar/ProgressBar';
 import { ApiUrl } from '../../constans/ApiUrl';
 import PrimaryInput from '../inputs/primary/PrimaryInput';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const getOrCreateUploaderKey = () => {
     let key = localStorage.getItem('uploader_key');
@@ -35,6 +37,8 @@ const UploadCard: React.FC = () => {
     const [percentage, setPercentage] = useState<number>(0);
 
     const [downloadLink, setDownloadLink] = useState<string>();
+
+    const token = useSelector((state: RootState) => state.auth.token);
 
     const validateForm = () => {
         const validateEmail = (email: string) => {
@@ -99,7 +103,7 @@ const UploadCard: React.FC = () => {
 
         axios.request({
             method: 'post',
-            url: ApiUrl+'files/store',
+            url: ApiUrl+'files/store' + (token ? '?token='+token : ''),
             data: formData,
             onUploadProgress: (p) => {
                 setPercentage(Math.round((p.loaded/p.total)*100));

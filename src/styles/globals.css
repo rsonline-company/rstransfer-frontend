@@ -45,8 +45,13 @@ button:focus,input:focus,textarea:focus {
 
 .close {
     font-size: 50px;
-    color: white;
+    color: #ccc;
+    margin: 10px;
 }
 .close:hover {
-    color: white;
+    color: gray;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

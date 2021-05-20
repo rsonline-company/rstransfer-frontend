@@ -1,125 +1,103 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { ApiUrl } from '../../../constans/ApiUrl';
+import { RootState } from '../../../redux/store';
 import DownloadButton from '../../buttons/download/DownloadButton';
-import LinkButton from '../../buttons/link/LinkButton';
+
+interface InitialFile {
+    parentZipName: string;
+    name: string;
+    createdAt: string;
+}
 
 interface File {
     name: string;
-    numberOfDownloads: number;
+    data: string[]
+}
+
+const groupFilesByZipName = (files: InitialFile[]) => {
+    const zipNames: string[] = [];
+
+    files.map((file) => {
+        zipNames.push(file.parentZipName);    
+    });
+
+    const uniqueZipNames = [...new Set(zipNames)];
+
+    const groupedFiles: File[] = [];
+
+    uniqueZipNames.map((name: string) => {
+        const data = files.filter(file => file.parentZipName === name).map(file => {
+            return file.name;
+        });
+
+        groupedFiles.push({
+            name: name,
+            data: data
+        });
+    });
+
+    return groupedFiles
+}
+
+const FileItem: React.FC<{ name: string, data?: string[] }> = ({ name, data }) => {
+    return (
+        <div className="my-3">
+            <div className="d-flex align-items-center justify-content-between">
+                <div className="font-weight-bold">{name}</div>
+                <div className="d-flex">
+                    <div className="mx-2">
+                        <DownloadButton fileName={name} />
+                    </div>
+                </div>
+            </div>
+            <ul>
+                {data && data.map(fileName => (
+                    <li>{fileName}</li>
+                ))}
+            </ul>
+            <hr/>
+        </div>
+    );
 }
 
 const MyFileModalContent: React.FC = () => {
-    const [files, setFiles] = useState<File[]>([
-        {
-            name: 'file_number_1.png',
-            numberOfDownloads: 23
-        },
-        {
-            name: 'file_number_432.png',
-            numberOfDownloads: 1
-        },
-        {
-            name: 'file_costam_4321.png',
-            numberOfDownloads: 54
-        },
-        {
-            name: 'file_number_1.png',
-            numberOfDownloads: 23
-        },
-        {
-            name: 'file_number_432.png',
-            numberOfDownloads: 1
-        },
-        {
-            name: 'file_costam_4321.png',
-            numberOfDownloads: 54
-        },
-        {
-            name: 'file_number_1.png',
-            numberOfDownloads: 23
-        },
-        {
-            name: 'file_number_432.png',
-            numberOfDownloads: 1
-        },
-        {
-            name: 'file_costam_4321.png',
-            numberOfDownloads: 54
-        },
-        {
-            name: 'file_number_1.png',
-            numberOfDownloads: 23
-        },
-        {
-            name: 'file_number_432.png',
-            numberOfDownloads: 1
-        },
-        {
-            name: 'file_costam_4321.png',
-            numberOfDownloads: 54
-        },
-        {
-            name: 'file_number_1.png',
-            numberOfDownloads: 23
-        },
-        {
-            name: 'file_number_432.png',
-            numberOfDownloads: 1
-        },
-        {
-            name: 'file_costam_4321.png',
-            numberOfDownloads: 54
-        },
-        {
-            name: 'file_number_1.png',
-            numberOfDownloads: 23
-        },
-        {
-            name: 'file_number_432.png',
-            numberOfDownloads: 1
-        },
-        {
-            name: 'file_costam_4321.png',
-            numberOfDownloads: 54
-        },
-        {
-            name: 'file_number_1.png',
-            numberOfDownloads: 23
-        },
-        {
-            name: 'file_number_432.png',
-            numberOfDownloads: 1
-        },
-        {
-            name: 'file_costam_4321.png',
-            numberOfDownloads: 54
-        }
-    ]);
+    const [files, setFiles] = useState<File[]>([]);
+
+    const token = useSelector((state: RootState) => state.auth.token);
+
+    useEffect(() => {
+        if(!token) return;
+
+        axios.post(ApiUrl+'files/load?token='+token)
+        .then(response => {
+            console.log(response);
+            const files = groupFilesByZipName(response.data);
+
+            setFiles(files);
+        }).catch(({ response }) => {
+            console.log(response);
+        });
+    }, [token]);
 
     return (
-        <div>
-            {files.map((file: File) => (
-                <>
-                <div className="my-3">
-                    <div className="d-flex align-items-center justify-content-between">
-                        <div className="font-weight-bold">{file.name}</div>
-                        <div className="d-flex">
-                            <div className="mx-2">
-                                <DownloadButton />
-                            </div>
-                            <div className="mx-2">
-                                <LinkButton />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="d-flex">
-                        <small>pobrany {file.numberOfDownloads} {file.numberOfDownloads === 1 ? 'raz' : 'razy'}</small>
-                        <small>&nbsp;• wygasa za: 40 godzin</small>
-                    </div>
-                </div>
-                <hr/>
-                </>
+        <>
+        {files !== undefined && files.map((file: File) => (
+            <>
+            {file.name ? <FileItem
+                name={file.name}
+                data={file.data}
+            /> : <>
+            {file.data.map(fileName => (
+                <FileItem
+                    name={fileName}
+                />
             ))}
-        </div>
+            </>}
+            </>
+        ))}
+        </>
     );
 }
 export default MyFileModalContent;

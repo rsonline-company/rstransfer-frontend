@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './PrimaryInput.module.scss';
 
 export interface Props {
+    type?: string;
     placeholder?: string;
     value: string;
     onChange?: (value: string) => void;
@@ -9,7 +10,7 @@ export interface Props {
     errorMessage?: string;
 }
 
-const PrimaryInput: React.FC<Props> = ({ placeholder, value, onChange, isTextCopyable, errorMessage }) => {
+const PrimaryInput: React.FC<Props> = ({ type, placeholder, value, onChange, isTextCopyable, errorMessage }) => {
     const [copyButtonTitle, setCopyButtonTitle] = useState('kopiuj do schowka');
     const copyTextFromInput = () => {
         navigator.clipboard.writeText(value);
@@ -25,7 +26,7 @@ const PrimaryInput: React.FC<Props> = ({ placeholder, value, onChange, isTextCop
         <div className={styles.container}>
         <input
             data-testid="primary-input"
-            type="text"
+            type={type ? type : "text"}
             className={styles.input}
             placeholder={placeholder}
             value={value}
