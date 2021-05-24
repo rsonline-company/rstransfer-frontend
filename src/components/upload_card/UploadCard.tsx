@@ -32,6 +32,7 @@ const UploadCard: React.FC = () => {
 
     const [emailFromErrorMessage, setEmailFromErrorMessage] = useState<string>();
     const [emailToErrorMessage, setEmailToErrorMessage] = useState<string>();
+    const [filesError, setFilesError] = useState<string>();
 
     const [isSending, setIsSending] = useState<boolean>(false);
     const [percentage, setPercentage] = useState<number>(0);
@@ -51,6 +52,7 @@ const UploadCard: React.FC = () => {
         /* if files are not selected */
         if(selectedFiles.length === 0) {
             isFormCorrect = false;
+            setFilesError('Wybierz przynajmniej jeden plik.');
         }
 
         // if we are generating link, stop validating inputs
@@ -130,6 +132,7 @@ const UploadCard: React.FC = () => {
             <FileInput
                 label="Kliknij, aby dodać pliki."
                 onChange={(files: File[]) => setSelectedFiles(files)}
+                errorMessage={filesError}
             />
             <EmailForm
                 isEmailSending={isEmailSending}

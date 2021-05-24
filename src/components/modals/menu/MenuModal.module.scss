@@ -1,6 +1,6 @@
 .container {
     position: absolute;
-    background: white;
+    background: var(--primary-color);
     top: 0;
     bottom: 0;
     left: 0;
@@ -10,7 +10,7 @@
 .item {
     font-size: 20px;
     margin-top: 15px;
-    color: var(--accent-color);
+    color: white;
     font-weight: bold;
     cursor: pointer;
 }

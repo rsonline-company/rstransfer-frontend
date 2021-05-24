@@ -8,9 +8,10 @@ export interface Props {
     onChange?: (value: string) => void;
     isTextCopyable?: boolean;
     errorMessage?: string;
+    onBlur?: () => void;
 }
 
-const PrimaryInput: React.FC<Props> = ({ type, placeholder, value, onChange, isTextCopyable, errorMessage }) => {
+const PrimaryInput: React.FC<Props> = ({ type, placeholder, value, onChange, isTextCopyable, errorMessage, onBlur }) => {
     const [copyButtonTitle, setCopyButtonTitle] = useState('kopiuj do schowka');
     const copyTextFromInput = () => {
         navigator.clipboard.writeText(value);
@@ -31,8 +32,9 @@ const PrimaryInput: React.FC<Props> = ({ type, placeholder, value, onChange, isT
             placeholder={placeholder}
             value={value}
             onChange={(e) => onChange ? onChange(e.target.value) : {}}
+            onBlur={onBlur}
         />
-        {errorMessage && <div className="w-100 text-danger">{errorMessage}</div>}
+        {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         {isTextCopyable && <button className={styles.copy} onClick={copyTextFromInput}>{copyButtonTitle}</button>}
         </div>
     )

@@ -22,7 +22,7 @@ const MenuModal: React.FC<Props> = ({ isVisible, setIsVisible }) => {
                 </div>
                 <div className="d-flex flex-column align-items-center">
                     {!token ? <>
-                        <div className={styles.item} data-toggle="modal" data-target="#loginModal">Zaloguj się</div>
+                        <div className={styles.item} data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Zaloguj się</div>
                         <div className={styles.item} data-toggle="modal" data-target="#registerModal">Zarejestruj się</div>
                     </>
                     : <>
@@ -35,6 +35,5 @@ const MenuModal: React.FC<Props> = ({ isVisible, setIsVisible }) => {
     } else {
         return null
     }
-    
 }
 export default MenuModal;
