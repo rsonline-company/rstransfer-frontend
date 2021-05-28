@@ -4,24 +4,28 @@ import { useSelector } from 'react-redux';
 import { ApiUrl } from '../../../constans/ApiUrl';
 import { RootState } from '../../../redux/store';
 import DownloadButton from '../../buttons/download/DownloadButton';
+import Moment from 'react-moment';
 
 interface InitialFile {
     parentZipName: string;
     name: string;
-    createdAt: string;
+    expiresAt: string;
 }
 
 interface File {
     name: string;
-    data: string[]
+    data?: string[];
+    expiresAt: string;
 }
 
 const groupFilesByZipName = (files: InitialFile[]) => {
     const zipNames: string[] = [];
 
     files.map((file) => {
-        zipNames.push(file.parentZipName);    
+        zipNames.push(file.parentZipName ? file.parentZipName : file.name);    
     });
+
+    console.log(files);
 
     const uniqueZipNames = [...new Set(zipNames)];
 
@@ -32,20 +36,24 @@ const groupFilesByZipName = (files: InitialFile[]) => {
             return file.name;
         });
 
+        const file = files.find(file => file.parentZipName === name || (file.parentZipName === null && file.name === name));
+        const expiresAt = file.expiresAt;
+
         groupedFiles.push({
             name: name,
-            data: data
+            data: data,
+            expiresAt: expiresAt
         });
     });
 
     return groupedFiles
 }
 
-const FileItem: React.FC<{ name: string, data?: string[] }> = ({ name, data }) => {
+const FileItem: React.FC<File> = ({ name, data, expiresAt }) => {
     return (
         <div className="my-3">
             <div className="d-flex align-items-center justify-content-between">
-                <div className="font-weight-bold">{name}</div>
+                <div className="font-weight-bold" style={styles.name} title={name}>{name}</div>
                 <div className="d-flex">
                     <div className="mx-2">
                         <DownloadButton fileName={name} />
@@ -54,9 +62,13 @@ const FileItem: React.FC<{ name: string, data?: string[] }> = ({ name, data }) =
             </div>
             <ul>
                 {data && data.map(fileName => (
-                    <li>{fileName}</li>
+                    <li style={styles.name}>{fileName}</li>
                 ))}
             </ul>
+            <li className="text-secondary" style={{ fontSize: '12px' }}>
+                <span>plik wygasa </span>
+                <Moment fromNow locale="pl">{expiresAt}</Moment>
+            </li>
             <hr/>
         </div>
     );
@@ -72,7 +84,6 @@ const MyFileModalContent: React.FC = () => {
 
         axios.post(ApiUrl+'files/load?token='+token)
         .then(response => {
-            console.log(response);
             const files = groupFilesByZipName(response.data);
 
             setFiles(files);
@@ -83,21 +94,33 @@ const MyFileModalContent: React.FC = () => {
 
     return (
         <>
-        {files !== undefined && files.map((file: File) => (
+        {files !== undefined && files.length > 0 ? files.map((file: File) => (
             <>
             {file.name ? <FileItem
                 name={file.name}
                 data={file.data}
+                expiresAt={file.expiresAt}
             /> : <>
             {file.data.map(fileName => (
                 <FileItem
                     name={fileName}
+                    expiresAt={file.expiresAt}
                 />
             ))}
             </>}
             </>
-        ))}
+        )) : <h6 className="text-center">Brak plików.</h6>}
         </>
     );
 }
+
+const styles = {
+    name: {
+        textOverflow: 'ellipsis',
+        'white-space': 'nowrap',
+        overflow: 'hidden',
+        width: '100%',
+    }
+}
+
 export default MyFileModalContent;

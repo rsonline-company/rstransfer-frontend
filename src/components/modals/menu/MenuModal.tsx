@@ -22,11 +22,11 @@ const MenuModal: React.FC<Props> = ({ isVisible, setIsVisible }) => {
                 </div>
                 <div className="d-flex flex-column align-items-center">
                     {!token ? <>
-                        <div className={styles.item} data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Zaloguj się</div>
-                        <div className={styles.item} data-toggle="modal" data-target="#registerModal">Zarejestruj się</div>
+                        <div className={styles.item} onClick={() => setIsVisible(!isVisible)} data-toggle="modal" data-target="#loginModal">Zaloguj się</div>
+                        <div className={styles.item} onClick={() => setIsVisible(!isVisible)} data-toggle="modal" data-target="#registerModal">Zarejestruj się</div>
                     </>
                     : <>
-                    <div className={styles.item} data-toggle="modal" data-target="#myFilesModal">Moje pliki</div>
+                    <div className={styles.item} onClick={() => setIsVisible(!isVisible)} data-toggle="modal" data-target="#myFilesModal">Moje pliki</div>
                     <div className={styles.item} onClick={() => dispatch(logout())}>Wyloguj się</div>
                     </>}
                 </div>

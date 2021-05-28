@@ -1,4 +1,9 @@
 .content {
-    max-height: 90vh;
     overflow-y: scroll;
+}
+
+@media (min-width: 576px) {
+    .content {
+        max-height: 90vh;
+    }
 }

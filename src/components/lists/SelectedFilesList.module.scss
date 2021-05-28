@@ -4,6 +4,10 @@
     margin: 5px;
     background-color: var(--primary-color);
     border-radius: 3px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
 }
 .size {
     font-size: 12px;
